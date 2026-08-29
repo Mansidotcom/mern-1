@@ -1,0 +1,19 @@
+{
+  "name": "electronic-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev-server": "cd backend && npm start",
+    "dev-client": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "build": "cd frontend && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.2.4",
+    "react-redux": "^9.3.0"
+  }
+}
