@@ -6,20 +6,6 @@ const path = require("path");
 dotenv.config();
 const app = express();
 
-if (process.env.NODE_ENV === 'production' || process.env.MODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '..', 'frontend', 'build', 'index.html'))
-    });
-}
-else {
-    app.get('/', (req, res) => {
-        res.send('ShopNest API is running in Devlopment mode....')
-    })
-}
-
-
 app.use(cors(
     {
         origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001', 'http://127.0.0.1:3002', process.env.FRONTEND_URL],
@@ -36,6 +22,20 @@ app.use('/api/products', require('./routes/productRoutes'));
  app.use('/api/orders', require('./routes/orderRoutes'));
  //app.use('/api/payments', require('./routes/paymentRoutes'));
  app.use('/api/analytics', require('./routes/analyticsRoutes'));
+
+
+if (process.env.NODE_ENV === 'production' || process.env.MODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+    app.get('/{*path}', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '..', 'frontend', 'build', 'index.html'))
+    });
+}
+else {
+    app.get('/', (req, res) => {
+        res.send('ShopNest API is running in Devlopment mode....')
+    })
+}
 
 
 const PORT = process.env.PORT || 5000; 
