@@ -23,9 +23,14 @@ app.use('/api/products', require('./routes/productRoutes'));
  app.use('/api/analytics', require('./routes/analyticsRoutes'));
 
 
-if (process.env.NODE_ENV === 'production' || process.env.MODE_ENV === 'production') {
-    // Frontend is deployed separately as a Render Static Site
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(Path2D.json(__dirname, '../frontend/build/index.html')));
+
+    app.get('*', (req, res) =>{
+        res.sendFile(Path2D.resolve(__dirname, '../frontend/build/index.html'));
+    });
 }
+
 else {
     app.get('/', (req, res) => {
         res.send('ShopNest API is running in Devlopment mode....')
