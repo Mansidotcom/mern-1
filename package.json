@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
     "build": "cd frontend && npm install && npm run build",
     "start": "cd backend && npm start",
     "start:backend": "npm --prefix backend run dev",
